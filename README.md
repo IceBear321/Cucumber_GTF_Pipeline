@@ -1,6 +1,6 @@
 # Cucumber (ChineseLong v3) GTF Processing Pipeline
 
-A complete pipeline for processing cucumber genome annotation using MeRIP-Seq data, including transcript assembly, quality filtering, and strand direction correction.
+A complete pipeline for processing cucumber genome annotation using RNA-Seq data, including transcript assembly, quality filtering, strand direction correction, and peak annotation.
 
 ## Overview
 
@@ -9,6 +9,9 @@ This pipeline improves genome annotation by:
 2. Assembling transcripts using StringTie with RNA-Seq data
 3. Filtering out low-quality transcripts (MSTRG, short <500bp)
 4. Correcting strand orientation based on strand-specific sequencing
+5. Annotating peaks to genomic features
+
+For peak annotation, see the separate `annotate_peaks_cucumber.sh` script in the parent directory.
 
 ## Pipeline Steps
 
@@ -22,12 +25,12 @@ python3 scripts/create_cds_ref.py
 # Forward strand
 stringtie -G data/ChineseLong_v3_CDS_only.gtf \
     -o data/stringtie_fwd.gtf -l fwd -p 8 -f 0.01 -g 50 \
-    /path/to/cs_9300_Input_fwd.bam
+    /path/to/test_fwd.bam
 
 # Reverse strand
 stringtie -G data/ChineseLong_v3_CDS_only.gtf \
     -o data/stringtie_rev.gtf -l rev -p 8 -f 0.01 -g 50 \
-    /path/to/cs_9300_Input_rev.bam
+    /path/to/test_rev.bam
 ```
 
 ### Step 3: Merge Assemblies
@@ -55,12 +58,14 @@ python3 scripts/filter_and_correct_strand.py
 
 ## Required Data Files
 
+Download from: http://cucurbitgenomics.org/v2/ftp/genome/cucumber/Chinese_long/v3/
+
 | File | Description |
 |------|-------------|
 | `ChineseLong_v3.gtf` | Reference genome annotation |
 | `ChineseLong_CDS_v3.fa.gz` | Reference CDS sequences |
-| `cs_9300_Input_fwd.bam` | Forward strand RNA-Seq |
-| `cs_9300_Input_rev.bam` | Reverse strand RNA-Seq |
+| `test_fwd.bam` | Forward strand RNA-Seq |
+| `test_rev.bam` | Reverse strand RNA-Seq |
 
 ## Output Files
 
@@ -89,12 +94,13 @@ python3 scripts/filter_and_correct_strand.py
 - GFFCompare
 - featureCounts (subread)
 - pandas
+- bedtools (for peak annotation)
 
 ## Installation
 
 ```bash
 # Install required tools
-conda install -c bioconda stringtie gffcompare subread
+conda install -c bioconda stringtie gffcompare subread bedtools
 ```
 
 ## Citation
@@ -102,7 +108,7 @@ conda install -c bioconda stringtie gffcompare subread
 If you use this pipeline, please cite:
 - ChineseLong v3 genome annotation
 - StringTie paper
-- MeRIP-Seq methodology
+- RNA-Seq methodology
 
 ## License
 
@@ -110,8 +116,8 @@ MIT License
 
 ## Author
 
-[Your Name]
+Zhihe Cai
 
 ## Contact
 
-[Your Email]
+zh.cai@pku.edu.cn
