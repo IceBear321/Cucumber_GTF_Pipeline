@@ -1,0 +1,33 @@
+# Ignore large data files
+*.bam
+*.bai
+*.fa
+*.fa.gz
+*.gtf
+*.gff3
+*.ht2
+
+# Ignore temporary files
+*.pyc
+__pycache__/
+*.tmp
+*_fwd.txt
+*_rev.txt
+*_fwd.txt.summary
+*_rev.txt.summary
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
+
+# Ignore IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Ignore intermediate files
+stringtie_*.gtf
+gffcompare_*
+merge_list.txt
