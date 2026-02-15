@@ -1,53 +1,53 @@
 # Peak Annotation Script
 
-## 使用方法
+## Usage
 
 ```bash
 python3 /data2/czh/TEL/cucumber/MeRIP_Seq_1/annotate_peaks_cucumber.py
 ```
 
-## 输入文件
+## Input Files
 
-脚本会自动使用以下文件：
-- Peak文件 (正向): `exomePeak2_fwd/exomePeak2_fwd_whole_genome/peaks.csv`
-- Peak文件 (反向): `exomePeak2_rev/exomePeak2_rev_whole_genome/peaks.csv`
-- GTF文件 (正链): `/data/czh/reference_genome/cucumber/ChineseLong_v3.final.strand_corrected.fwd.gtf`
-- GTF文件 (负链): `/data/czh/reference_genome/cucumber/ChineseLong_v3.final.strand_corrected.rev.gtf`
+The script automatically uses the following files:
+- Peak file (forward): `exomePeak2_fwd/exomePeak2_fwd_whole_genome/peaks.csv`
+- Peak file (reverse): `exomePeak2_rev/exomePeak2_rev_whole_genome/peaks.csv`
+- GTF file (forward strand): `/data/czh/reference_genome/cucumber/ChineseLong_v3.final.strand_corrected.fwd.gtf`
+- GTF file (reverse strand): `/data/czh/reference_genome/cucumber/ChineseLong_v3.final.strand_corrected.rev.gtf`
 
-## 输出文件
+## Output File
 
 - `exomePeak2_annotated_peaks_cucumber_strand_corrected.tsv`
 
-## 输出格式
+## Output Format
 
-| 列名 | 说明 |
-|------|------|
-| chr | 染色体 |
-| peak_start | peak起始位置 |
-| peak_end | peak结束位置 |
-| strand | 链方向 |
-| geneid | 注释到的基因ID |
-| feature | 区域类型 |
+| Column | Description |
+|--------|-------------|
+| chr | Chromosome |
+| peak_start | Peak start position |
+| peak_end | Peak end position |
+| strand | Strand direction |
+| geneid | Annotated gene ID |
+| feature | Feature type |
 | log2FC | log2 fold change |
-| pvalue | p值 |
-| fdr | FDR校正后的p值 |
+| pvalue | p-value |
+| fdr | FDR-corrected p-value |
 
-## Feature优先级
+## Feature Priority
 
-按优先级从高到低：
+From highest to lowest priority:
 1. three_prime_utr
-2. stop_codon (CDS ±10bp)
+2. stop_codon (CDS +/-10bp)
 3. exon
-4. start_codon (CDS ±10bp)
+4. start_codon (CDS +/-10bp)
 5. five_prime_utr
 6. intron
 7. intergenic
 
-## 自定义修改
+## Customization
 
-如需修改输入文件，编辑脚本中的变量：
-- `PEAK_FWD`: 正向peak CSV文件路径
-- `PEAK_REV`: 反向peak CSV文件路径
-- `GTF_FWD`: 正链GTF文件路径
-- `GTF_REV`: 负链GTF文件路径
-- `OUTPUT`: 输出文件路径
+To modify input files, edit the variables in the script:
+- `PEAK_FWD`: Forward peak CSV file path
+- `PEAK_REV`: Reverse peak CSV file path
+- `GTF_FWD`: Forward strand GTF file path
+- `GTF_REV`: Reverse strand GTF file path
+- `OUTPUT`: Output file path
